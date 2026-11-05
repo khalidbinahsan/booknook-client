@@ -1,18 +1,32 @@
-import Link from "next/link";
+import { Suspense } from "react";
+import BannerSlider from "@/components/home/BannerSlider";
+import NewArrivals from "@/components/home/NewArrivals";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
+
+// Title comes from the root layout default: "BookNook | Home"
+// (a title template only applies to child routes, not the root page)
 
 export default function Home() {
   return (
-    <section className="container-x flex-1 flex flex-col items-center justify-center py-24 text-center">
-      <h1 className="section-title">Welcome to BookNook</h1>
-      <p className="section-subtitle">
-        A small online library where readers share their shelves. Add a book,
-        borrow a book, return a book.
-      </p>
-      <div className="mt-8 flex justify-center gap-3">
-        <Link href="/books" className="btn btn-primary rounded-full px-8">
-          Browse Books
-        </Link>
-      </div>
-    </section>
+    <>
+      <BannerSlider />
+
+      <section className="container-x py-20">
+        <div className="mb-12 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
+            Fresh on the shelf
+          </p>
+          <h2 className="section-title mt-2">New Arrivals</h2>
+          <p className="section-subtitle">
+            The latest books our readers have added. Grab one before someone
+            else borrows it.
+          </p>
+        </div>
+
+        <Suspense fallback={<LoadingSpinner message="Loading the newest books..." />}>
+          <NewArrivals />
+        </Suspense>
+      </section>
+    </>
   );
 }

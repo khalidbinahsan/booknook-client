@@ -102,6 +102,34 @@
   }
 }
 
+/* Swiper banner: theme-coloured arrows and dots */
+.banner-swiper {
+  --swiper-theme-color: var(--color-accent);
+  --swiper-navigation-size: 22px;
+  --swiper-pagination-bullet-inactive-color: #ffffff;
+  --swiper-pagination-bullet-inactive-opacity: 0.6;
+  --swiper-pagination-bottom: 20px;
+}
+.banner-swiper .swiper-button-prev,
+.banner-swiper .swiper-button-next {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: rgb(0 0 0 / 0.35);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+.banner-swiper .swiper-button-prev:hover,
+.banner-swiper .swiper-button-next:hover {
+  background: var(--color-primary);
+}
+@media (max-width: 640px) {
+  .banner-swiper .swiper-button-prev,
+  .banner-swiper .swiper-button-next {
+    display: none;
+  }
+}
+
 @layer components {
   /* One heading style reused by every section on every page */
   .section-title {

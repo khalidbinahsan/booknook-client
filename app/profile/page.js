@@ -28,7 +28,7 @@ export default async function ProfilePage() {
     <section className="container-x py-12 md:py-16">
       <div className="mx-auto max-w-3xl">
         <div className="overflow-hidden rounded-3xl border border-base-300 bg-base-100 shadow-lg">
-          <div className="h-32 bg-gradient-to-r from-primary to-secondary" />
+          <div className="h-32 bg-linear-to-r from-primary to-secondary" />
           <div className="px-6 pb-8 sm:px-10">
             <div className="-mt-14 flex flex-col items-center text-center sm:flex-row sm:items-end sm:text-left sm:gap-6">
               <UserAvatar
