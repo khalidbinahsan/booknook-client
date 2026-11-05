@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiImage, FiMail, FiUser } from "react-icons/fi";
 import { toast } from "sonner";
-import { signUp } from "@/lib/auth-client";
+import { signOut, signUp } from "@/lib/auth-client";
 import GoogleButton from "./GoogleButton";
 import PasswordInput from "./PasswordInput";
 
@@ -45,12 +45,21 @@ export default function RegisterForm() {
       password,
       ...(image && { image }),
     });
-    setLoading(false);
-
     if (error) {
-      toast.error(error.message || "Registration failed. Please try again.");
+      setLoading(false);
+      const message =
+        error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL" ||
+        error.code === "USER_ALREADY_EXISTS"
+          ? "An account with this email already exists. Please log in instead."
+          : error.message || "Registration failed. Please try again.";
+      toast.error(message);
       return;
     }
+
+    // The assignment wants users to log in after registering,
+    // so end the session that sign up just created.
+    await signOut();
+    setLoading(false);
 
     toast.success("Account created! Please log in to continue.");
     form.reset();
