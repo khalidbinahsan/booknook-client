@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiMenu, FiX } from "react-icons/fi";
+import { useSession } from "@/lib/auth-client";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
+import UserMenu from "./UserMenu";
 
 const navLinks = [
   { href: "/", label: "Home", private: false },
@@ -15,12 +17,15 @@ const navLinks = [
   { href: "/my-borrows", label: "My Borrows", private: true },
 ];
 
-export default function Navbar() {
+export default function Navbar({ initialUser = null }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { data: session, isPending } = useSession();
 
-  // Auth is wired in later - until then everyone is treated as a guest
-  const user = null;
+  // The server already knows the user (initialUser), so the navbar is correct
+  // on the very first paint after a reload. Once the client session loads it
+  // takes over, so login / logout update the navbar instantly.
+  const user = isPending ? initialUser : (session?.user ?? null);
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -54,6 +59,8 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
+
+          {user && <UserMenu user={user} />}
 
           {!user && (
             <div className="hidden sm:flex items-center gap-2">
