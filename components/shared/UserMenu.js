@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { FiLogOut, FiUser } from "react-icons/fi";
 import { toast } from "sonner";
 import { signOut } from "@/lib/auth-client";
+import { clearTokenCache } from "@/lib/api";
 import UserAvatar from "./UserAvatar";
 
 export default function UserMenu({ user }) {
@@ -32,6 +33,7 @@ export default function UserMenu({ user }) {
   const handleLogout = async () => {
     setLoggingOut(true);
     const { error } = await signOut();
+    clearTokenCache();
     setLoggingOut(false);
     setOpen(false);
 

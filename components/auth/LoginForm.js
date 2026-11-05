@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { FiMail } from "react-icons/fi";
 import { toast } from "sonner";
 import { signIn } from "@/lib/auth-client";
+import { clearTokenCache } from "@/lib/api";
 import GoogleButton from "./GoogleButton";
 import PasswordInput from "./PasswordInput";
 
@@ -35,6 +36,7 @@ export default function LoginForm({ callbackUrl = "/" }) {
       return;
     }
 
+    clearTokenCache(); // make sure the next API call uses the new user's token
     toast.success("Welcome back to BookNook!");
     router.push(callbackUrl);
     router.refresh();
