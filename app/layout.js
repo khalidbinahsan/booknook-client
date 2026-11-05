@@ -1,6 +1,7 @@
 import { Fraunces, Inter } from "next/font/google";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import AppToaster from "@/components/shared/AppToaster";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -49,6 +50,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="flex-1 flex flex-col">{children}</main>
         <Footer />
+        <AppToaster />
       </body>
     </html>
   );
