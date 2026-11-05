@@ -46,7 +46,8 @@ export default function RootLayout({ children }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-full flex flex-col">
+      {/* suppressHydrationWarning: browser extensions (Grammarly etc.) add attributes to <body> */}
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Navbar />
         <main className="flex-1 flex flex-col">{children}</main>
         <Footer />
