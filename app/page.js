@@ -1,7 +1,10 @@
 import { Suspense } from "react";
 import BannerSlider from "@/components/home/BannerSlider";
 import NewArrivals from "@/components/home/NewArrivals";
+import HowItWorks from "@/components/home/HowItWorks";
+import TopCategories from "@/components/home/TopCategories";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import Reveal from "@/components/shared/Reveal";
 
 // Title comes from the root layout default: "BookNook | Home"
 // (a title template only applies to child routes, not the root page)
@@ -12,7 +15,7 @@ export default function Home() {
       <BannerSlider />
 
       <section className="container-x py-20">
-        <div className="mb-12 text-center">
+        <Reveal className="mb-12 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">
             Fresh on the shelf
           </p>
@@ -21,12 +24,15 @@ export default function Home() {
             The latest books our readers have added. Grab one before someone
             else borrows it.
           </p>
-        </div>
+        </Reveal>
 
         <Suspense fallback={<LoadingSpinner message="Loading the newest books..." />}>
           <NewArrivals />
         </Suspense>
       </section>
+
+      <HowItWorks />
+      <TopCategories />
     </>
   );
 }
